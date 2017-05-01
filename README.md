@@ -8,21 +8,15 @@ $ rake db:migrate
 2. メール設定
 ```
 # config/environments/development.rb
-config.action_mailer.delivery_method = :smtp
-config.action_mailer.smtp_settings = {
-  :address => 'smtp.gmail.com',
-  :port => 587,
-  :authentication => :plain,
   :user_name => 'メールアドレス',
   :password => 'パスワード'
-}
 ```
 
 ## 参考
 http://www.sejuku.net/blog/13378#rake_dbmigrate
 http://qiita.com/Salinger/items/873e3c667462746ae707
 
-### 準備
+## 準備
 1. gemインストール
 ```
 # Gemfile
@@ -108,9 +102,14 @@ ent
 
 
 ## 日本語化
+
+### 参考サイト
 https://github.com/plataformatec/devise/wiki/I18n
 https://github.com/tigrish/devise-i18n
 https://gist.github.com/kaorumori/7276cec9c2d15940a3d93c6fcfab19f3
+
+### エラーメッセージ日本語化
+http://gaku3601.hatenablog.com/entry/2014/10/04/185947
 
 1. devise-i18nのインストール
 ```
@@ -130,7 +129,7 @@ Rails.application.config.i18n.default_locale = :ja
 ```
 
 ## 活用
-1. ログイン・サインアップ画面へのリンク追加
+### ログイン・サインアップ画面へのリンク追加
 ```
 # views/home/index.html.erb
 <% if user_signed_in? %>
@@ -143,7 +142,7 @@ Rails.application.config.i18n.default_locale = :ja
 <% end %>
 ```
 
-2. ログイン時のみ内容を確認できるように設定
+### ログイン時のみ内容を確認できるように設定
 ```
 # app/controllers/application_controller.rb
 class ApplicationController < ActionController::Base
@@ -153,7 +152,7 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-3. ログアウトボタン
+### ログアウトボタン
 ```
 # app/views/layouts/application.html.erb
 <% if user_signed_in? %>
@@ -161,7 +160,7 @@ end
 <% end %>
 ```
 
-4. パスワード再設定メール
+### パスワード再設定メール
 事前にgoogleでアプリ用パスワードを払い出しておく
 ```
 # config/environments/development.rb
@@ -175,9 +174,21 @@ config.action_mailer.smtp_settings = {
 }
 ```
 
-5. 新規登録を禁止する
+### 新規登録を禁止する
 http://qiita.com/iguchi1124/items/bb25cf650348f31ea37e
 ```
 # app/models/user.rb
 :registerable # <= 削除する
+```
+
+### ログイン・ログアウト時のリダイレクト先を指定する
+http://morizyun.github.io/blog/devise-customize-login-register-path/
+```
+# app/controllers/application_controller.rb
+def after_sign_in_path_for(resource)
+  admin_root_path
+end
+def after_sign_out_path_for(resource)
+  admin_root_path
+end
 ```

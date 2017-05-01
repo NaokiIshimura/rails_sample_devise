@@ -1,26 +1,28 @@
-<h2><%= t('.sign_in') %></h2>
+<div class="jumbotron center-block" style="margin-top:30px;width:420px;">
+  <h2 style="margin-top:0px;margin-bottom:30px;"><%= t('.sign_in') %></h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true  %>
-  </div>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, class: "form-control", style: "width:300px;margin-bottom:5px" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
+      <div class="field">
+        <%= f.label :password %><br />
+        <%= f.password_field :password, autocomplete: "off", class: "form-control", style: "width:300px;margin-bottom:5px" %>
+      </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
+      <% if devise_mapping.rememberable? %>
+        <div class="field">
+          <%= f.check_box :remember_me, class: "" %>
+          <%= f.label :remember_me, class: "" %>
+        </div>
+      <% end %>
 
-  <div class="actions">
-    <%= f.submit t('.sign_in') %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+      <div class="actions">
+        <%= f.submit t('.sign_in'), class: "btn btn-primary" %>
+      </div>
+    <% end %>
+    <hr>
+    <%= render "devise/shared/links" %>
+</div>

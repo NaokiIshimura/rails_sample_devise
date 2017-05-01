@@ -1,0 +1,18 @@
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+    <%= link_to "sample app", root_path, id: "logo", class: "" %>
+    <nav>
+      <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %>
+          <li><%= link_to "Page1", member_pages_page1_path %></li>
+          <li><%= link_to "Page2", member_pages_page2_path %></li>
+          <li><%= link_to "Page2", member_pages_page3_path %></li>
+          <%= render 'layouts/dropdown' %>
+        <% else %>
+        <li><%= link_to "Sign up", new_user_registration_path %></li>
+        <li><%= link_to "Login", new_user_session_path %></li>
+        <% end %>
+      </ul>
+    </nav>
+  </div>
+</header>

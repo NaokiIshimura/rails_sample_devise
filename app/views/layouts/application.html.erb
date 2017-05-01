@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>DeviseTest</title>
-    <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <title><%= full_title(yield(:title)) %></title>
+    <%= render 'layouts/rails_default' %>
+    <%= render 'layouts/shim' %>
   </head>
 
   <body>
-    <!-- devise >>> -->
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <% if user_signed_in? %>
-      <p><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></p>
-    <% end %>
-    <!-- <<< devise -->
-    <%= yield %>
+    <%= render 'layouts/header' %>
+    <div class="container">
+      <!-- devise >>> -->
+      <%if notice %><p class="notice"><%= notice %></p><% end %>
+      <%if alert %><p class="alert"><%= alert %></p><% end %>
+      <!--<% if user_signed_in? %>
+        <p><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></p>
+      <% end %>-->
+      <!-- <<< devise -->
+      <%= yield %>
+      <%= render 'layouts/footer' %>
+    </div>
   </body>
 </html>

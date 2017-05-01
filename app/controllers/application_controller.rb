@@ -10,4 +10,14 @@ class ApplicationController < ActionController::Base
     true
   end
 
+  # ログイン後のリダイレクト先を指定
+  def after_sign_in_path_for(resource)
+    member_pages_page1_path
+  end
+
+  # ログアウト後のリダイレクト先を指定
+  def after_sign_out_path_for(resource)
+    root_path
+  end
+
 end
