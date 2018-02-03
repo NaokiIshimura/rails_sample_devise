@@ -1,18 +1,55 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
   <div class="container">
-    <%= link_to "sample app", root_path, id: "logo", class: "" %>
-    <nav>
-      <ul class="nav navbar-nav navbar-right">
-        <% if user_signed_in? %>
-          <li><%= link_to "Page1", member_pages_page1_path %></li>
-          <li><%= link_to "Page2", member_pages_page2_path %></li>
-          <li><%= link_to "Page2", member_pages_page3_path %></li>
-          <%= render 'layouts/dropdown' %>
-        <% else %>
-        <li><%= link_to "Sign up", new_user_registration_path %></li>
-        <li><%= link_to "Login", new_user_session_path %></li>
-        <% end %>
-      </ul>
-    </nav>
+
+    <a class="navbar-brand" href="<%= root_path %>">Navbar</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <% if user_signed_in? %>
+          <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item <%= 'active' if request.path_info == member_pages_page1_path %>">
+              <a class="nav-link" href="<%= member_pages_page1_path %>">Page1 <span class="sr-only">(current)</span></a>
+            </li>
+
+            <li class="nav-item <%= 'active' if request.path_info == member_pages_page2_path %>">
+              <a class="nav-link" href="<%= member_pages_page2_path %>">Page2</a>
+            </li>
+
+            <li class="nav-item <%= 'active' if request.path_info == member_pages_page3_path %>">
+              <a class="nav-link" href="<%= member_pages_page3_path %>">Page3</a>
+            </li>
+
+          </ul>
+
+          <ul class="navbar-nav my-2 my-lg-0">
+            <%= render 'layouts/dropdown' %>
+          </ul>
+
+
+      <% else %>
+          <ul class="navbar-nav mr-auto">
+          </ul>
+          <ul class="navbar-nav my-2 my-lg-0">
+
+            <li class="nav-item <%= 'active' if request.path_info == new_user_registration_path %>">
+              <a class="nav-link" href="<%= new_user_registration_path %>">Sign up</a>
+            </li>
+
+            <li class="nav-item <%= 'active' if request.path_info == new_user_session_path %>">
+              <a class="nav-link" href="<%= new_user_session_path %>">Login</a>
+            </li>
+
+          </ul>
+
+      <% end %>
+
+
+    </div>
   </div>
-</header>
+</nav>
