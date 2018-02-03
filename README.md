@@ -174,6 +174,16 @@ config.action_mailer.smtp_settings = {
 }
 ```
 
+環境変数
+```
+# 送信基メールアドレス
+$ export GMAIL_MAIL_ADDRESS=xxxxx
+$ echo $GMAIL_MAIL_ADDRESS
+
+$ export GMAIL_MAIL_PASSWORD=xxxxx
+$ echo $GMAIL_MAIL_PASSWORD
+```
+
 ### 新規登録を禁止する
 http://qiita.com/iguchi1124/items/bb25cf650348f31ea37e
 ```
