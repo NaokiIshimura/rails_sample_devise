@@ -1,5 +1,16 @@
 # README
 
+## 環境変数
+
+```
+# 送信基メールアドレス
+$ export GMAIL_MAIL_ADDRESS=xxxxx
+$ echo $GMAIL_MAIL_ADDRESS
+
+$ export GMAIL_MAIL_PASSWORD=xxxxx
+$ echo $GMAIL_MAIL_PASSWORD
+```
+
 ## 使い方
 1. マイグレーション
 ```
@@ -174,16 +185,6 @@ config.action_mailer.smtp_settings = {
 }
 ```
 
-環境変数
-```
-# 送信基メールアドレス
-$ export GMAIL_MAIL_ADDRESS=xxxxx
-$ echo $GMAIL_MAIL_ADDRESS
-
-$ export GMAIL_MAIL_PASSWORD=xxxxx
-$ echo $GMAIL_MAIL_PASSWORD
-```
-
 ### 新規登録を禁止する
 http://qiita.com/iguchi1124/items/bb25cf650348f31ea37e
 ```
@@ -201,4 +202,48 @@ end
 def after_sign_out_path_for(resource)
   admin_root_path
 end
+```
+
+## Lockable
+
+https://qiita.com/inodev/items/eeb26ea9408d4627bf0a
+
+```
+# db/migrate/xxx.rb
+
+## Lockable
+t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
+t.string   :unlock_token # Only if unlock strategy is :email or :both
+t.datetime :locked_at
+```
+
+```
+# app/model/user.rb
+
+class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable,
+         :lockable
+end
+```
+
+```
+# config/initializers/devise.rb
+config.lock_strategy = :failed_attempts # 一定回数ログインミスでロック
+config.unlock_strategy = :time          # ロック解除条件は時間経過のみ
+config.maximum_attempts = 10            # 10回連続ミスでロック
+config.unlock_in = 1.hour               # 1時間ロック継続
+config.last_attempt_warning = false    # あと1回ミスしてロックされる時に警告を出さない
+```
+
+Unable to unlock user with link from unlock e-mail
+https://github.com/plataformatec/devise/issues/3559
+
+```
+# app/views/devise/mailer/unlock_instructions.html.erb
+
+- link_to 'Unlock my account', unlock_url(@resource, :unlock_token => @resource.unlock_token)
++ link_to 'Unlock my account', unlock_url(@resource, :unlock_token => @token)
 ```
