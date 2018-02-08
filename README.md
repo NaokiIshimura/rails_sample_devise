@@ -3,7 +3,7 @@
 ## 環境変数
 
 ```
-# 送信基メールアドレス
+# 通知用メール
 $ export GMAIL_MAIL_ADDRESS=xxxxx
 $ echo $GMAIL_MAIL_ADDRESS
 
